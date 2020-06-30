@@ -7,6 +7,7 @@
 //
 
 #import "APIManager.h"
+#import "Tweet.h"
 
 static NSString * const baseURLString = @"https://api.twitter.com";
 static NSString * const consumerKey = @"CuX6IzjKqbReL6iULX2hs4yT0";
@@ -56,8 +57,9 @@ static NSString * const consumerSecret = @"YhM6GnMKCUu6xiJUIC0JEXlabbM9n5dqsS5pO
        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tweetDictionaries];
        [[NSUserDefaults standardUserDefaults] setValue:data forKey:@"hometimeline_tweets"];
 
-       completion(tweetDictionaries, nil);
-       
+        NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
+        completion(tweets, nil);
+    
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
        
        NSArray *tweetDictionaries = nil;
@@ -66,10 +68,26 @@ static NSString * const consumerSecret = @"YhM6GnMKCUu6xiJUIC0JEXlabbM9n5dqsS5pO
        NSData *data = [[NSUserDefaults standardUserDefaults] valueForKey:@"hometimeline_tweets"];
        if (data != nil) {
            tweetDictionaries = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+           NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
+           completion(tweets, nil);
        }
        
        completion(tweetDictionaries, error);
    }];
+     
+    /*
+    // Create a GET Request
+    [self GET:@"1.1/statuses/home_timeline.json"
+        parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+            // Success
+            NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
+            completion(tweets, nil);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            // There was a problem
+            completion(nil, error);
+        }];
+     */
+    
 }
 
 @end
