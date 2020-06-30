@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) NSMutableArray *tweets;
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 @end
 
 @implementation TimelineViewController
@@ -28,20 +30,31 @@
     self.tableView.delegate = self;
     self.tableView.rowHeight = 150;
     
+    [self getTimeline];
+    
+    // Refresh Control
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(getTimeline) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
+   
+}
+
+-(void)getTimeline {
     // Get timeline
-    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
-        if (tweets) {
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
-            self.tweets = (NSMutableArray *)tweets;
-            for (Tweet *tweet in tweets) {
-                NSString *text = tweet.text;
-                NSLog(@"%@", text);
-            }
-            [self.tableView reloadData];
-        } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
-        }
-    }];
+       [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+           if (tweets) {
+               NSLog(@"😎😎😎 Successfully loaded home timeline");
+               self.tweets = (NSMutableArray *)tweets;
+               for (Tweet *tweet in tweets) {
+                   NSString *text = tweet.text;
+                   NSLog(@"%@", text);
+               }
+               [self.tableView reloadData];
+           } else {
+               NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+           }
+           [self.refreshControl endRefreshing];
+       }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,7 +74,6 @@
 
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    NSLog(@"cellForRow");
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
     
     Tweet *tweet = self.tweets[indexPath.row];
@@ -87,7 +99,6 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"numOfRows");
     return self.tweets.count;
 }
 
