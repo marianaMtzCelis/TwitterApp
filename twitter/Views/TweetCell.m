@@ -92,6 +92,7 @@
                  NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
             }
             else{
+                [self.rtButton.imageView setImage:[UIImage imageNamed:@"retweet-icon-green"]];
                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
             }
         }];
@@ -108,6 +109,7 @@
                  NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
             }
             else{
+                [self.rtButton.imageView setImage:[UIImage imageNamed:@"retweet-icon"]];
                 NSLog(@"Successfully unretweeting the following Tweet: %@", tweet.text);
             }
         }];
