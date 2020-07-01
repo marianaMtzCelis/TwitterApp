@@ -11,6 +11,8 @@
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "ComposeViewController.h"
+#import "AppDelegate.h"
+#import "LoginViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -83,6 +85,8 @@
     cell.dateLabel.text = tweet.createdAtString;
     cell.tweetLabel.text = tweet.text;
     
+    cell.tweet = tweet;
+    
     NSString *handle = tweet.user.screenName;
     NSString *fullHandle = [@"@" stringByAppendingString:handle];
     cell.handleLabel.text = fullHandle;
@@ -106,5 +110,17 @@
 - (void)didTweet:(nonnull Tweet *)tweet {
     [self.tableView reloadData];
 }
+
+- (IBAction)logOutTapped:(id)sender {
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    
+    [[APIManager shared] logout];
+}
+
 
 @end
