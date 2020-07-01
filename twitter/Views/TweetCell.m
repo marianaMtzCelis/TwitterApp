@@ -40,18 +40,6 @@
     
     [self.favButton setTitle:[NSString stringWithFormat:@"%i", self.tweet.favoriteCount] forState:UIControlStateNormal];
     
-    if (self.tweet.favorited) {
-        [self.favButton.imageView setImage:[UIImage imageNamed:@"favor-icon-red"]];
-    } else {
-        [self.favButton.imageView setImage:[UIImage imageNamed:@"favor-icon"]];
-    }
-    
-    if (self.tweet.retweeted) {
-        [self.rtButton.imageView setImage:[UIImage imageNamed:@"retweet-icon-green"]];
-    } else {
-        [self.rtButton.imageView setImage:[UIImage imageNamed:@"retweet-icon"]];
-    }
-    
 }
 
 - (IBAction)didTapFavorite:(id)sender {
@@ -67,6 +55,7 @@
                  NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
             }
             else{
+                [self.favButton.imageView setImage:[UIImage imageNamed:@"favor-icon-red"]];
                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
             }
         }];
@@ -82,6 +71,7 @@
                  NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
             }
             else{
+                [self.favButton.imageView setImage:[UIImage imageNamed:@"favor-icon"]];
                 NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
             }
         }];
