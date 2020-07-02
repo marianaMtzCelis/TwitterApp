@@ -55,6 +55,8 @@ Here's a walkthrough of implemented user stories on different devices:
 
 <img src='http://g.recordit.co/rkh8uVloeh.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' /> <img src='https://recordit.co/o5cSd6OBjY.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+<img src='http://g.recordit.co/zgWQCRDWQy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 GIFs created with [Recordit](https://recordit.co/).
 
 ## Notes
