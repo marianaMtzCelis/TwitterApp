@@ -2,7 +2,7 @@
 
 **TwitterApp** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **X** hours spent in total
+Time spent: **14** hours spent in total
 
 ## User Stories
 
@@ -40,14 +40,10 @@ The following **optional** features are implemented:
 - [ ] Profile Page: pulling down the profile page should blur and resize the header image. (**4 points**)
 
 
-The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
-
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Better ways to store API Keys
+2. Better ways to refactor code
 
 ## Video Walkthrough
 
@@ -66,6 +62,8 @@ GIFs created with [Recordit](https://recordit.co/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+
+I had some problems with the API endpoints for the retweet, favorite, unretweet, and unfavorite features but after reading the documentation I could fix them and I'm proud of the outcome.
 
 ## Credits
 
