@@ -8,6 +8,8 @@
 
 #import "Tweet.h"
 #import "User.h"
+#import "DateTools.h"
+#import "NSDate+TimeAgo.h"
 
 @implementation Tweet
 
@@ -35,6 +37,7 @@
         NSDictionary *user = dictionary[@"user"];
         self.user = [[User alloc] initWithDictionary:user];
 
+        /*
         // TODO: Format and set createdAtString
         // Format createdAt date string
         NSString *createdAtOriginalString = dictionary[@"created_at"];
@@ -48,6 +51,17 @@
         formatter.timeStyle = NSDateFormatterNoStyle;
         // Convert Date to String
         self.createdAtString = [formatter stringFromDate:date];
+        */
+        
+        // Format createdAt date string
+        NSString *createdAtOriginalString = dictionary[@"created_at"];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        // Configure the input format to parse the date string
+        formatter.dateFormat = @"E MMM d HH:mm:ss Z y";
+        // Convert String to Date
+        NSDate *date = [formatter dateFromString:createdAtOriginalString];
+        NSString *ago = [date timeAgo];
+        self.createdAtString = ago;
         
     }
     return self;
